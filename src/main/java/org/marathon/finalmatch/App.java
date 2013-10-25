@@ -12,7 +12,7 @@ public class App
         System.out.println( "Something change." );
         System.out.println( "Something change later." );
         System.out.println( "Something change later on." );
-        System.out.println( "syj." );
+        System.out.println( "syj.123" );
         System.out.println( "syj1." );
     }
 }
