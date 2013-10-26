@@ -30,26 +30,6 @@ public class IOUtil {
         processFileLine(callback, file);
     }
 
-    private static void processFileLine(LineProcessor callback, File file) {
-        BufferedReader br = null;
-        try {
-            br = new BufferedReader(new FileReader(file));
-            String line = null;
-            while ((line = br.readLine()) != null) {
-                callback.process(line);
-            }
-            br.close();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        } finally {
-            try {
-                br.close();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }
-
     public static void writeStringToFile(String outputFileName, String content) {
         FileWriter fw = null;
         try {
@@ -66,6 +46,26 @@ public class IOUtil {
                 if (fw != null) {
                     fw.close();
                 }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    private static void processFileLine(LineProcessor callback, File file) {
+        BufferedReader br = null;
+        try {
+            br = new BufferedReader(new FileReader(file));
+            String line = null;
+            while ((line = br.readLine()) != null) {
+                callback.process(line);
+            }
+            br.close();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                br.close();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

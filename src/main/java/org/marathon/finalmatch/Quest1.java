@@ -13,27 +13,10 @@ import org.marathon.finalmatch.util.LineProcessor;
 import org.marathon.finalmatch.util.LogParser;
 
 public class Quest1 {
-    public static void processQuestion1() {
+    public static void processQuestion1(String directoryName, String[] logFileNames) {
         final Map<String, Long> counterMap = new HashMap<String, Long>();
-        String directoryName = "C:\\CodeMarathon\\Data\\Test\\";
-        String[] logFileNames = { "eTrade.20131021.log", "eTrade.20131022.log", "eTrade.20131023.log",
-                "eTrade.20131024.log", "eTrade.20131025.log" };
         for (String fileName : logFileNames) {
-            IOUtil.processLine(new LineProcessor() {
-                @Override
-                public void process(String line) {
-                    ProductLog pl = LogParser.parseNewOrderRequestLog(line);
-                    if (pl == null) {
-                        return;
-                    }
-                    Long count = counterMap.get(pl.getCode());
-                    if (count == null) {
-                        count = 0L;
-                    }
-                    count += pl.getQuantity();
-                    counterMap.put(pl.getCode(), count);
-                }
-            }, directoryName, fileName);
+            processLine(directoryName, fileName, counterMap);
 
             ValueComparator comparator = new ValueComparator(counterMap);
             TreeMap<String, Long> sortMap = new TreeMap<String, Long>(comparator);
@@ -51,6 +34,24 @@ public class Quest1 {
             counterMap.clear();
         }
 
+    }
+
+    private static void processLine(String directoryName, String fileName, final Map<String, Long> counterMap) {
+        IOUtil.processLine(new LineProcessor() {
+            @Override
+            public void process(String line) {
+                ProductLog pl = LogParser.parseNewOrderRequestLog(line);
+                if (pl == null) {
+                    return;
+                }
+                Long count = counterMap.get(pl.getCode());
+                if (count == null) {
+                    count = 0L;
+                }
+                count += pl.getQuantity();
+                counterMap.put(pl.getCode(), count);
+            }
+        }, directoryName, fileName);
     }
 }
 

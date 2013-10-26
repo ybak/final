@@ -26,10 +26,7 @@ public class Quest2 {
 
     private static final SimpleDateFormat OUTPUT_FORMAT = new SimpleDateFormat("HH:mm:ss");
 
-    public static void processQuestion2() {
-        String directoryName = "C:\\CodeMarathon\\Data\\Test\\";
-        String[] logFileNames = { "eTrade.20131021.log", "eTrade.20131022.log", "eTrade.20131023.log",
-                "eTrade.20131024.log", "eTrade.20131025.log" };
+    public static void processQuestion2(String directoryName, String[] logFileNames) {
         for (String fileName : logFileNames) {
             final Map<String, RequestLog> requestCacheMap = new HashMap<String, RequestLog>();
             final List<ResponseLog> responseList = new ArrayList<ResponseLog>();
