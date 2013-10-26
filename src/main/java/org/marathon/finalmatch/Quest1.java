@@ -4,13 +4,18 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.TreeMap;
 import java.util.Map.Entry;
+import java.util.TreeMap;
+
+import org.marathon.finalmatch.domain.ProductLog;
+import org.marathon.finalmatch.util.IOUtil;
+import org.marathon.finalmatch.util.LineProcessor;
+import org.marathon.finalmatch.util.LogParser;
 
 public class Quest1 {
     public static void processQuestion1() {
         final Map<String, Long> counterMap = new HashMap<String, Long>();
-
+        String directoryName = "C:\\CodeMarathon\\Data\\Test\\";
         String[] logFileNames = { "eTrade.20131021.log", "eTrade.20131022.log", "eTrade.20131023.log",
                 "eTrade.20131024.log", "eTrade.20131025.log" };
         for (String fileName : logFileNames) {
@@ -28,7 +33,7 @@ public class Quest1 {
                     count += pl.getQuantity();
                     counterMap.put(pl.getCode(), count);
                 }
-            }, fileName);
+            }, directoryName, fileName);
 
             ValueComparator comparator = new ValueComparator(counterMap);
             TreeMap<String, Long> sortMap = new TreeMap<String, Long>(comparator);

@@ -1,4 +1,4 @@
-package org.marathon.finalmatch;
+package org.marathon.finalmatch.domain;
 
 import java.util.ArrayList;
 import java.util.HashMap;

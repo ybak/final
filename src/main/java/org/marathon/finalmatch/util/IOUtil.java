@@ -1,4 +1,4 @@
-package org.marathon.finalmatch;
+package org.marathon.finalmatch.util;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -9,11 +9,31 @@ import java.net.URL;
 
 public class IOUtil {
 
-    public static void processLine(LineProcessor callback, String fileName) {
-        BufferedReader br = null;
+    public static void processLine(LineProcessor callback, String directory, String fileName) {
+        File file = null;
+        try {
+            file = new File(directory + fileName);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        processFileLine(callback, file);
+    }
+
+    public static void processResourceLine(LineProcessor callback, String fileName) {
+        File file = null;
         try {
             URL stationURL = ClassLoader.getSystemResource(fileName);
-            br = new BufferedReader(new FileReader(new File(stationURL.toURI())));
+            file = new File(stationURL.toURI());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        processFileLine(callback, file);
+    }
+
+    private static void processFileLine(LineProcessor callback, File file) {
+        BufferedReader br = null;
+        try {
+            br = new BufferedReader(new FileReader(file));
             String line = null;
             while ((line = br.readLine()) != null) {
                 callback.process(line);
@@ -30,7 +50,7 @@ public class IOUtil {
         }
     }
 
-    static void writeStringToFile(String outputFileName, String content) {
+    public static void writeStringToFile(String outputFileName, String content) {
         FileWriter fw = null;
         try {
             File file = new File(outputFileName);
@@ -52,8 +72,4 @@ public class IOUtil {
         }
     }
 
-}
-
-abstract class LineProcessor {
-    public abstract void process(String line);
 }

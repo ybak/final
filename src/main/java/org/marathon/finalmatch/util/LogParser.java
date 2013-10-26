@@ -1,8 +1,12 @@
-package org.marathon.finalmatch;
+package org.marathon.finalmatch.util;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+
+import org.marathon.finalmatch.domain.ProductLog;
+import org.marathon.finalmatch.domain.RequestLog;
+import org.marathon.finalmatch.domain.ResponseLog;
 
 public class LogParser {
 

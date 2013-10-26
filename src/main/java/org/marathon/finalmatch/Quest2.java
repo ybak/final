@@ -7,6 +7,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.marathon.finalmatch.domain.ExceptionPeriod;
+import org.marathon.finalmatch.domain.RequestLog;
+import org.marathon.finalmatch.domain.ResponseLog;
+import org.marathon.finalmatch.util.IOUtil;
+import org.marathon.finalmatch.util.LineProcessor;
+import org.marathon.finalmatch.util.LogParser;
+
 public class Quest2 {
 
     private static final int MINUTE = 60 * 1000;
@@ -20,6 +27,7 @@ public class Quest2 {
     private static final SimpleDateFormat OUTPUT_FORMAT = new SimpleDateFormat("HH:mm:ss");
 
     public static void processQuestion2() {
+        String directoryName = "C:\\CodeMarathon\\Data\\Test\\";
         String[] logFileNames = { "eTrade.20131021.log", "eTrade.20131022.log", "eTrade.20131023.log",
                 "eTrade.20131024.log", "eTrade.20131025.log" };
         for (String fileName : logFileNames) {
@@ -46,7 +54,7 @@ public class Quest2 {
                         requestCacheMap.remove(response.getRequestID());
                     }
                 }
-            }, fileName);
+            }, directoryName, fileName);
             delayAvgTime = delayTotalTime / responseCount;
             for (ResponseLog response : responseList) {
                 if (response.getDelayTime() > delayAvgTime) {
